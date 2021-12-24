@@ -1,0 +1,134 @@
+swagger: "2.0"
+info:
+  description: "Diseño de un REST API en node que consume una DB interna en MongoDB."
+  version: "1.0.0"
+  title: "Swagger Todo List"
+  contact:
+    email: "samudioivan59@gmail.com"
+tags:
+- name: "task"
+  description: "Operations about task"
+schemes:
+- "http"
+paths:
+ 
+  /tasks:
+    post:
+      tags:
+      - "task"
+      summary: "Create a task"
+      description: "Crea una nueva tarea."
+      operationId: "createtask"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created task object"
+        required: true
+        schema:
+          $ref: "#/definitions/task"
+      responses:
+        default:
+          description: "successful operation"
+ 
+    get:
+      tags:
+      - "task"
+      summary: "Get all tasks"
+      description: "Get all tasks"
+      operationId: "logouttask"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters: []
+      responses:
+        default:
+          description: "successful operation"
+  /tasks/{taskid}:
+    get:
+      tags:
+      - "task"
+      summary: "Get task by task id"
+      description: ""
+      operationId: "gettaskById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "taskid"
+        in: "path"
+        description: " "
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/task"
+        "400":
+          description: "Invalid taskname supplied"
+        "404":
+          description: "task not found"
+    put:
+      tags:
+      - "task"
+      summary: "Updated task by task id"
+      description: "Updated task"
+      operationId: "updatetask"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "taskid"
+        in: "path"
+        description: "name that need to be updated"
+        required: true
+        type: "string"
+      - in: "body"
+        name: "body"
+        description: "Updated task object"
+        required: true
+        schema:
+          $ref: "#/definitions/task"
+      responses:
+        "400":
+          description: "Invalid task supplied"
+        "404":
+          description: "task not found"
+    delete:
+        tags:
+        - "task"
+        summary: "Delete task by task id"
+        description: ""
+        operationId: "deletetask"
+        produces:
+        - "application/json"
+        parameters:
+        - name: "taskid"
+          in: "path"
+          description: "name that need to be updated"
+          required: true
+          type: "string"
+
+        responses:
+          "400":
+            description: "Invalid task supplied"
+          "404":
+            description: "task not found"
+
+definitions:
+  
+  task:
+    type: "object"
+    properties:
+      id:
+        type: "number"
+      description:
+        type: "string"
+      status:
+        type: "string"
+      date:
+        type: "string"
+      
+    xml:
+      name: "task"
+  
